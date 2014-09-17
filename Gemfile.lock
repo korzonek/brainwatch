@@ -205,7 +205,7 @@ GEM
     sendgrid (1.2.0)
       json
       json
-    shoulda-matchers (2.7.0)
+    shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
     simple_form (3.0.2)
       actionpack (~> 4.0)
