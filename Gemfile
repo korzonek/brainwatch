@@ -13,7 +13,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'sendgrid'
-gem 'simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'slim-rails'
 group :development do
   gem 'better_errors'
