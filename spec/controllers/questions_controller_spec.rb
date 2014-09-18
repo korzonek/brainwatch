@@ -65,4 +65,37 @@ describe QuestionsController, :type => :controller do
     end
 
   end
+
+  describe 'PATCH #update' do
+    context "with valid attributes" do
+      it 'should assign requested question to @question' do
+        patch :update, id: question, question: attributes_for(:question)
+        expect(assigns(:question)).to eq question
+        expect(response).to redirect_to question
+      end
+
+      it 'changes question attributes' do
+        patch :update, id: question, question: {title: 'changed title', body: 'changed body'}
+        question.reload
+        expect(question.title).to eq 'changed title'
+        expect(question.body).to eq 'changed body'
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'should assign requested question to @question' do
+        patch :update, id: question, question: {title: nil, body: nil}
+        expect(assigns(:question)).to eq question
+        expect(response).to render_template("edit")
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'should delete the question' do
+      question
+      expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+      expect(response).to redirect_to questions_path
+    end
+  end
 end
