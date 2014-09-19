@@ -4,11 +4,11 @@ describe QuestionsController, :type => :controller do
   let(:question) { create(:question) }
 
   describe 'GET #index' do
-    let(:questions) { create_list(:question, 2) }
+    let(:questions) { create_list(:question, 12) }
 
     before { get :index }
 
-    it('should populate questions') { expect(assigns(:questions)).to match_array questions }
+    it('should populate questions') { expect(assigns(:questions)).to match_array questions.reverse.take(10) }
     it('should render index view') { expect(response).to render_template :index }
   end
 

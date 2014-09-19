@@ -13,7 +13,13 @@ feature 'Question' do
     visit new_question_path
     fill_in 'Title', with: 'Question title'
     fill_in 'Body', with: 'My question'
-    click_on 'Ask'
+    click_on 'Post Your Question'
+    expect(page.current_path).to eq question_path(id: Question.last)
   end
 
+  scenario 'list last 10 question' do
+    create_list(:question,11)
+    visit questions_path
+    expect(page).to have_selector('main li', count: 10)
+  end
 end
