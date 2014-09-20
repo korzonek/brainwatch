@@ -1,10 +1,10 @@
 feature 'Question' do
 
-  # Scenario: Visit the home page
+  # Scenario: See Ask Question link
   #   Given I am a visitor
   #   When I visit the home page
   #   Then I see "Ask Question"
-  scenario 'visit the home page' do
+  scenario 'See Ask Question link' do
     visit root_path
     expect(page).to have_link 'Ask Question'
   end
@@ -18,8 +18,21 @@ feature 'Question' do
   end
 
   scenario 'list last 10 question' do
-    create_list(:question,11)
+    create_list(:question, 11)
     visit questions_path
     expect(page).to have_selector('main li', count: 10)
   end
+
+  scenario 'have a link to question' do
+    create(:question)
+    visit questions_path
+    expect(page).to have_link('MyString')
+  end
+
+  scenario 'display question page' do
+    visit question_path create(:question)
+    expect(page).to have_content('MyString')
+    expect(page).to have_selector('form')
+  end
+
 end

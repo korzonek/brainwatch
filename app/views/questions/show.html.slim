@@ -1,0 +1,7 @@
+=@question.title
+=@question.body
+-@question.answers.each do |a|
+  h1=a.body
+=simple_form_for(@answer,url: question_answers_path(@question)) do |f|
+  =f.input :body
+  =f.submit 'Post Your Answer'
