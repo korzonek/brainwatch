@@ -1,7 +1,6 @@
 feature 'Answer' do
 
   scenario 'add answer to question' do
-    #need to have question
     question = create(:question)
     visit question_path(question)
     fill_in 'Body', with: 'My Answer'

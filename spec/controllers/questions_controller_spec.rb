@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe QuestionsController, :type => :controller do
   let(:question) { create(:question) }
+  let(:user) {create(:user)}
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 12) }
@@ -21,6 +22,7 @@ describe QuestionsController, :type => :controller do
 
   describe 'GET #new' do
     it 'should assign new question as @question' do
+      sign_in user
       get :new
       expect(assigns(:question)).to be_a_new(Question)
     end
@@ -31,14 +33,15 @@ describe QuestionsController, :type => :controller do
     let(:question) { create(:question) }
 
     it 'should assign existing question as @question' do
+      sign_in user
       get :edit, id: question
       expect(assigns(:question)).to eq(question)
     end
   end
 
-
   describe 'POST #create' do
     context 'with valid attributes' do
+      before {sign_in user}
       it 'should create a Question ' do
         expect {
           post :create, question: attributes_for(:question)
@@ -48,6 +51,11 @@ describe QuestionsController, :type => :controller do
       it 'should redirect to show' do
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to question_path(assigns(:question))
+      end
+
+      it 'should set current user as question creator' do
+        post :create, question: attributes_for(:question)
+        expect(Question.last.user).to eq user
       end
 
     end
@@ -67,6 +75,7 @@ describe QuestionsController, :type => :controller do
   end
 
   describe 'PATCH #update' do
+    before {sign_in user}
     context "with valid attributes" do
       it 'should assign requested question to @question' do
         patch :update, id: question, question: attributes_for(:question)
@@ -92,6 +101,7 @@ describe QuestionsController, :type => :controller do
   end
 
   describe 'DELETE #destroy' do
+    before {sign_in user}
     it 'should delete the question' do
       question
       expect { delete :destroy, id: question }.to change(Question, :count).by(-1)

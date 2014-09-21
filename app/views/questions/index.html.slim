@@ -1,2 +1,19 @@
+.row
+  .col-sm-2=image_tag('BW-logo-225.png')
+  .col-sm-8
+     h3=link_to 'Questions',questions_path ,class: 'label label-default'
+     //=link_to 'Users' ,users_path,class: 'label label-default'
+  .col-sm-2
+     h3=link_to 'Ask Question' ,new_question_path ,class: 'label label-default'
+h4 Top Questions
 -@questions.each do |q|
-  li=link_to q.title, q
+  .row
+    .col-xs-1
+      .panel.panel-default.text-center
+        h3=q.answers.size
+        | answers
+    .col-xs-11
+      h4=link_to q.title, q
+      =q.body
+      div.pull-right
+        = "asked #{time_ago_in_words(q.created_at)}, by #{q.user.name}"

@@ -9,7 +9,16 @@ feature 'Question' do
     expect(page).to have_link 'Ask Question'
   end
 
+  scenario 'should be redirected to login page' do
+    visit new_question_path
+    expect(page.current_path).to eq new_user_session_path
+    expect(page).to have_content I18n.t 'devise.failure.unauthenticated'
+  end
+
+  given(:user) { create(:user)}
+
   scenario 'ask question' do
+    signin(user.email, user.password)
     visit new_question_path
     fill_in 'Title', with: 'Question title'
     fill_in 'Body', with: 'My question'
