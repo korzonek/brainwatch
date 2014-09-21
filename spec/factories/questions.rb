@@ -19,6 +19,10 @@ FactoryGirl.define do
     user
   end
 
+  trait :static_user do
+    user User.first || user
+  end
+
   factory :invalid_question, class: "Question" do
     title nil
     body "MyText"

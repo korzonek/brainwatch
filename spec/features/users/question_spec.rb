@@ -27,9 +27,9 @@ feature 'Question' do
   end
 
   scenario 'list last 10 question' do
-    create_list(:question, 11)
+    questions = create_list :question, 11
     visit questions_path
-    expect(page).to have_content('MyString', count: 10)
+    expect(page).to have_content(questions.first.title, count: 10)
   end
 
   scenario 'have a link to question' do

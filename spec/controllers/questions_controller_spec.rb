@@ -57,7 +57,6 @@ describe QuestionsController, :type => :controller do
         post :create, question: attributes_for(:question)
         expect(Question.last.user).to eq user
       end
-
     end
 
     context 'with invalid attributes' do
@@ -71,7 +70,6 @@ describe QuestionsController, :type => :controller do
         expect(response).to render_template("new")
       end
     end
-
   end
 
   describe 'PATCH #update' do
