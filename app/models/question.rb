@@ -7,10 +7,11 @@
 #  body       :text
 #  created_at :datetime
 #  updated_at :datetime
+#  user_id    :integer
 #
 
 class Question < ActiveRecord::Base
   validates :title, :body,  presence: true
   has_many :answers
-
+  belongs_to :user
 end

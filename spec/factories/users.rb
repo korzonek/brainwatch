@@ -23,10 +23,14 @@
 #
 
 FactoryGirl.define do
+  sequence :email do |n|
+    "test#{n}@example.com"
+  end
+
   factory :user do
     confirmed_at Time.now
     name "Test User"
-    email "test@example.com"
+    email
     password "please123"
   end
 end
