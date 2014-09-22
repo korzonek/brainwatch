@@ -29,12 +29,14 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'annotate'
+  gem 'dotenv'
 end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'rspec-rails'
+  gem 'letter_opener'
 end
 group :test do
   gem 'capybara'

@@ -1,7 +1,21 @@
-=@question.title
+h3=@question.title
 =@question.body
+div.pull-right
+  = "asked #{time_ago_in_words(@question.created_at)}, by #{@question.user.name}"
+hr
+h4
+  =>@question.answers.size
+  | Answers
+hr
 -@question.answers.each do |a|
-  h1=a.body
-=simple_form_for(@answer,url: question_answers_path(@question)) do |f|
+    .row
+      .col-xs-1
+        h3 00
+      .col-xs-11
+        =a.body
+        div.pull-right
+          = "asked #{time_ago_in_words(a.created_at)} ago, by #{a.user.name}"
+    hr
+=simple_form_for(Answer.new,url: question_answers_path(@question)) do |f|
   =f.input :body
   =f.submit 'Post Your Answer'
