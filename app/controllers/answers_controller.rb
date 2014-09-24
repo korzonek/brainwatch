@@ -3,12 +3,13 @@ class AnswersController < ApplicationController
   before_filter :set_question, only: [:create]
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.build(answer_params)
     @answer.user = current_user
     if @answer.save
-      redirect_to @question, notice: 'Answer created'
+      @answer = Answer.new
+      render :create
     else
-      render 'questions/show'
+      render :new
     end
   end
 
