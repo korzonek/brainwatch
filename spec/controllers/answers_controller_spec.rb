@@ -6,8 +6,8 @@ describe AnswersController, :type => :controller do
   let(:user) { create(:user) }
 
   describe 'POST #create' do
+    before { sign_in user }
     context 'with valid attributes' do
-      before { sign_in user }
       it 'should create a Answer ' do
         expect {
           post :create, question_id: question, answer: attributes_for(:answer) ,format: :js
@@ -27,7 +27,7 @@ describe AnswersController, :type => :controller do
 
     context 'with invalid attributes' do
       it 'should not save invalid answer' do
-        post :create, question_id: question, answer: attributes_for(:invalid_answer),format: :js
+        post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js
         expect(assigns(:answer)).to be_a_new Answer
       end
 

@@ -9,7 +9,9 @@ class AnswersController < ApplicationController
       @answer = Answer.new
       render :create
     else
-      render :new
+      respond_to do |format|
+        format.js {render :new}
+      end
     end
   end
 
