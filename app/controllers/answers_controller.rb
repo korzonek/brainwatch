@@ -15,9 +15,19 @@ class AnswersController < ApplicationController
     end
   end
 
+  def accept
+    @answer = Answer.find(params[:id])
+    @question = @answer.question
+    @question.accept_answer @answer
+  end
+
   private
   def set_question
     @question = Question.find(params[:question_id])
+  end
+
+  def set_answer
+    @answer = Answer.find(params[:id])
   end
 
   def answer_params

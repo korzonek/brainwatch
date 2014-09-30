@@ -8,6 +8,11 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  user_id     :integer
+#  accepted    :boolean
+#
+# Indexes
+#
+#  index_answers_on_user_id  (user_id)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

@@ -1,9 +1,6 @@
--@question.answers.each do |a|
-    .row
-      .col-xs-1
-        h3 00
-      .col-xs-11
-        =a.body
-        div.pull-right
-          = "asked #{time_ago_in_words(a.created_at)} ago, by #{a.user.name}"
-    hr
+-if @question.accepted_answer.present?
+  =render 'answers/answer',  answer: @question.accepted_answer, question: @question
+
+-@question.answers.each do |answer|
+  - unless answer == @question.accepted_answer
+    =render 'answers/answer',  answer: answer, question: @question
