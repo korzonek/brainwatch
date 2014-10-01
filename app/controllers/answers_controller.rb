@@ -18,7 +18,7 @@ class AnswersController < ApplicationController
   def accept
     @answer = Answer.find(params[:id])
     @question = @answer.question
-    @question.accept_answer @answer
+    @question.accept_answer(@answer) if @question.author?(current_user)
   end
 
   private

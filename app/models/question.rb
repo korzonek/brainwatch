@@ -15,10 +15,10 @@
 #
 
 class Question < ActiveRecord::Base
-  validates :title, :body,  presence: true
+  validates :title, :body, presence: true
   has_many :answers
   belongs_to :user
-  has_one :accepted_answer , class_name: "Answer"
+  has_one :accepted_answer, class_name: "Answer"
 
   def accepted_answer
     answers.find_by(answers: {accepted: true})
@@ -27,5 +27,9 @@ class Question < ActiveRecord::Base
   def accept_answer(accepted_answer)
     self.accepted_answer.update(accepted: false) if self.accepted_answer
     accepted_answer.update(accepted: true)
-   end
+  end
+
+  def author?(other_user)
+    user == other_user
+  end
 end

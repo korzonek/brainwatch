@@ -4,8 +4,9 @@
     - if answer == question.accepted_answer
       span.glyphicon.glyphicon-ok.accepted
     - else
-      =link_to(accept_answer_path(answer), method: :post , remote: true)
-        span.glyphicon.glyphicon-ok
+      -if question.author?(current_user)
+        =link_to(accept_answer_path(answer), method: :post , remote: true)
+          span.glyphicon.glyphicon-ok
   .col-xs-11
     =answer.body
     div.pull-right
