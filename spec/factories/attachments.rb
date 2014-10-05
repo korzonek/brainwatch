@@ -2,15 +2,16 @@
 #
 # Table name: attachments
 #
-#  id          :integer          not null, primary key
-#  question_id :integer
-#  file        :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id              :integer          not null, primary key
+#  attachable_id   :integer
+#  file            :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  attachable_type :string(255)
 #
 # Indexes
 #
-#  index_attachments_on_question_id  (question_id)
+#  index_attachments_on_attachable_id  (attachable_id)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

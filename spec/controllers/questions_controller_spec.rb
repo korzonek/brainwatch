@@ -14,10 +14,13 @@ describe QuestionsController, :type => :controller do
   end
 
   describe 'GET #show' do
-    it 'should assign existing question as @question' do
+    before do
+      sign_in user
       get :show, id: question
-      expect(assigns(:question)).to eq(question)
     end
+
+    it('should assign existing question as @question') { expect(assigns(:question)).to eq(question) }
+    it('should populate attachment') { expect(assigns(:answer).attachments.first).to be_a_new(Attachment) }
   end
 
   describe 'GET #new' do
@@ -27,7 +30,7 @@ describe QuestionsController, :type => :controller do
     end
 
     it('should assign new question as @question') { expect(assigns(:question)).to be_a_new(Question) }
-    it('should populate attachment') {expect(assigns(:question).attachments.first).to be_a_new(Attachment)}
+    it('should populate attachment') { expect(assigns(:question).attachments.first).to be_a_new(Attachment) }
   end
 
   describe 'GET #edit' do

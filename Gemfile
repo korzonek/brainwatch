@@ -16,6 +16,8 @@ gem 'sendgrid'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'slim-rails'
 gem 'carrierwave'
+gem 'remotipart'
+gem 'nested_form'
 
 group :development do
   gem 'better_errors'

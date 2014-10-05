@@ -19,7 +19,7 @@ class Question < ActiveRecord::Base
   has_many :answers
   belongs_to :user
   has_one :accepted_answer, class_name: "Answer"
-  has_many :attachments
+  has_many :attachments, as: :attachable
   accepts_nested_attributes_for :attachments
 
   def accepted_answer
