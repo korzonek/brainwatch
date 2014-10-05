@@ -21,12 +21,13 @@ describe QuestionsController, :type => :controller do
   end
 
   describe 'GET #new' do
-    it 'should assign new question as @question' do
+    before do
       sign_in user
       get :new
-      expect(assigns(:question)).to be_a_new(Question)
     end
 
+    it('should assign new question as @question') { expect(assigns(:question)).to be_a_new(Question) }
+    it('should populate attachment') {expect(assigns(:question).attachments.first).to be_a_new(Attachment)}
   end
 
   describe 'GET #edit' do

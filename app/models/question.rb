@@ -20,6 +20,8 @@ class Question < ActiveRecord::Base
   belongs_to :user
   has_one :accepted_answer, class_name: "Answer"
   has_many :attachments
+  accepts_nested_attributes_for :attachments
+
   def accepted_answer
     answers.find_by(answers: {accepted: true})
   end

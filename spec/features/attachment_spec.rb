@@ -13,7 +13,7 @@ feature 'Attachment',%q{
     fill_in 'Body', with: 'Question Body'
     attach_file 'File', "#{Rails.root}/spec/features/attachment_spec.rb"
     click_on 'Post Your Question'
-    expect(page).to have_content('attachment_spec.rb')
+    expect(page).to have_link 'attachment_spec.rb', href: '/uploads/attachment/file/1/attachment_spec.rb'
 
   end
 end

@@ -1,7 +1,10 @@
 h3=@question.title
 =@question.body
-div.pull-right
-  = "asked #{time_ago_in_words(@question.created_at)}, by #{@question.user.name}"
+div
+  -@question.attachments.each do |a|
+    =link_to a.file.filename, a.file.url
+  div.pull-right
+    = "asked #{time_ago_in_words(@question.created_at)}, by #{@question.user.name}"
 hr
 h4
   =>@question.answers.size
