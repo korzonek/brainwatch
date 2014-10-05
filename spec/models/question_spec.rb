@@ -19,6 +19,8 @@ require 'rails_helper'
 RSpec.describe Question, :type => :model do
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
+  it { should have_many :attachments}
+
   let (:question) { create(:question, answers: create_list(:answer, 3)) }
 
   context 'accept answer' do

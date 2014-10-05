@@ -19,7 +19,7 @@ class Question < ActiveRecord::Base
   has_many :answers
   belongs_to :user
   has_one :accepted_answer, class_name: "Answer"
-
+  has_many :attachments
   def accepted_answer
     answers.find_by(answers: {accepted: true})
   end

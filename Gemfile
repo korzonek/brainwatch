@@ -15,6 +15,8 @@ gem 'devise'
 gem 'sendgrid'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'slim-rails'
+gem 'carrierwave'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
