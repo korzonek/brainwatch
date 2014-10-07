@@ -16,17 +16,13 @@
 
 FactoryGirl.define do
   factory :question do
-    title "MyString"
-    body "MyText"
+    title 'MyString'
+    body 'MyText'
     user
   end
 
-  trait :static_user do
-    user User.first || user
-  end
-
-  factory :invalid_question, class: "Question" do
+  factory :invalid_question, class: 'Question' do
     title nil
-    body "MyText"
+    body 'MyText'
   end
 end

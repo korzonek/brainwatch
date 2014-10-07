@@ -34,8 +34,8 @@ FactoryGirl.define do
 
   factory :user do
     confirmed_at Time.now
-    name "Test User"
+    name 'Test User'
     email
-    password "please123"
+    password 'please123'
   end
 end

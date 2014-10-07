@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create]
-  before_filter :set_question, only: [:create]
+  before_action :set_question, only: [:create]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -10,7 +10,7 @@ class AnswersController < ApplicationController
       render :create
     else
       respond_to do |format|
-        format.js {render :new}
+        format.js { render :new }
       end
     end
   end
@@ -22,6 +22,7 @@ class AnswersController < ApplicationController
   end
 
   private
+
   def set_question
     @question = Question.find(params[:question_id])
   end

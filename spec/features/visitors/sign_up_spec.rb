@@ -10,7 +10,7 @@ feature 'Sign Up', :devise do
   #   Then I see a successful sign up message
   scenario 'visitor can sign up with valid email address and password' do
     sign_up_with('test@example.com', 'please123', 'please123')
-    txts = [I18n.t( 'devise.registrations.signed_up'), I18n.t( 'devise.registrations.signed_up_but_unconfirmed')]
+    txts = [I18n.t('devise.registrations.signed_up'), I18n.t('devise.registrations.signed_up_but_unconfirmed')]
     expect(page).to have_content(/.*#{txts[0]}.*|.*#{txts[1]}.*/)
   end
 
@@ -29,7 +29,7 @@ feature 'Sign Up', :devise do
   #   Then I see a missing password message
   scenario 'visitor cannot sign up without password' do
     sign_up_with('test@example.com', '', '')
-    expect(page).to have_content "Password can't be blank"
+    expect(page).to have_content 'Password can\'t be blank'
   end
 
   # Scenario: Visitor cannot sign up with a short password
@@ -38,7 +38,7 @@ feature 'Sign Up', :devise do
   #   Then I see a 'too short password' message
   scenario 'visitor cannot sign up with a short password' do
     sign_up_with('test@example.com', 'please', 'please')
-    expect(page).to have_content "Password is too short"
+    expect(page).to have_content 'Password is too short'
   end
 
   # Scenario: Visitor cannot sign up without password confirmation
@@ -47,7 +47,7 @@ feature 'Sign Up', :devise do
   #   Then I see a missing password confirmation message
   scenario 'visitor cannot sign up without password confirmation' do
     sign_up_with('test@example.com', 'please123', '')
-    expect(page).to have_content "Password confirmation doesn't match"
+    expect(page).to have_content 'Password confirmation doesnt match'
   end
 
   # Scenario: Visitor cannot sign up with mismatched password and confirmation
@@ -56,7 +56,7 @@ feature 'Sign Up', :devise do
   #   Then I should see a mismatched password message
   scenario 'visitor cannot sign up with mismatched password and confirmation' do
     sign_up_with('test@example.com', 'please123', 'mismatch')
-    expect(page).to have_content "Password confirmation doesn't match"
+    expect(page).to have_content 'Password confirmation doesnt match'
   end
 
 end

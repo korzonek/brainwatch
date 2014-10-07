@@ -19,7 +19,7 @@
 
 FactoryGirl.define do
   factory :answer do
-    body "TheAnswerBody"
+    body 'TheAnswerBody'
     question
     user
   end

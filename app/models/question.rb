@@ -18,12 +18,12 @@ class Question < ActiveRecord::Base
   validates :title, :body, presence: true
   has_many :answers
   belongs_to :user
-  has_one :accepted_answer, class_name: "Answer"
+  has_one :accepted_answer, class_name: 'Answer'
   has_many :attachments, as: :attachable
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   def accepted_answer
-    answers.find_by(answers: {accepted: true})
+    answers.find_by(answers: { accepted: true })
   end
 
   def accept_answer(accepted_answer)

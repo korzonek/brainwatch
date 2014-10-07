@@ -15,7 +15,7 @@ feature 'Question' do
     expect(page).to have_content I18n.t 'devise.failure.unauthenticated'
   end
 
-  given(:user) { create(:user)}
+  given(:user) { create(:user) }
 
   scenario 'ask question' do
     signin(user.email, user.password)

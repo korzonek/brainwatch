@@ -18,6 +18,6 @@
 
 FactoryGirl.define do
   factory :attachment do
-    question ""
+    question ''
   end
 end
