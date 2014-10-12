@@ -44,11 +44,25 @@ feature 'Answer' do
 
   scenario 'should be able to accept the answer', js: true do
     signin_user(enthusiast)
-    # answer_to_select = question_with_answers.answers.first
-    # answer_to_select.update(body: 'Select this Answer')
     visit question_path(question_with_answers)
     within('.answers') { expect(page).to have_css('a span.glyphicon.glyphicon-ok', 3) }
     page.all('a span.glyphicon.glyphicon-ok')[0].click
     within('.answers') { expect(page).to have_css('a span.glyphicon.glyphicon-ok', 2) }
   end
+
+  scenario "don't see comment link on answers" do
+    visit question_path question_with_answers
+    within('.answers') { expect(page).to_not have_link('add a comment') }
+  end
+
+  scenario 'see comment link on answer' do
+    signin_user(expert)
+    visit question_path question_with_answers
+    within('.answers') { expect(page).to have_link('add a comment') }
+  end
+
+  scenario "on 'add a comment' click show add comment form"
+  scenario 'check comment added to answer'
+  scenario 'delete comment own'
+  scenario 'edit own comment'
 end

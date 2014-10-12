@@ -44,4 +44,28 @@ feature 'Question' do
     expect(page).to have_selector('form')
   end
 
+  scenario 'don\'t see comment link on question' do
+    visit question_path create(:question)
+    within('#question') { expect(page).to_not have_link('add a comment') }
+  end
+
+  scenario 'see comment link on question' do
+    signin_user(user)
+    visit question_path create(:question)
+    within('#question') { expect(page).to have_link('add a comment') }
+  end
+
+  scenario 'check comment added to question', js: true do
+    signin_user(user)
+    visit question_path create(:question)
+    click_on 'add a comment'
+    within('#question') {
+      fill_in 'Body', with: 'My comment text'
+      click_on 'Add Your Comment'
+      save_screenshot('screen.png', :full => true)
+      expect(page).to have_content('My comment text')
+    }
+    # should add comment and remove form
+
+  end
 end
