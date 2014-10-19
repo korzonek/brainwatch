@@ -45,9 +45,9 @@ feature 'Question' do
     question_with_answers.answers.first.comments.create!(body: 'My comment', user: user)
     visit question_path question_with_answers
     within("#answer-#{question_with_answers.answers.first.id}") do
-      expect(page).to have_link('delete a comment')
+      expect(page).to have_link('delete')
       expect(page).to have_content('My comment')
-      click_on 'delete a comment'
+      click_on 'delete'
       expect(page).to_not have_content('My comment')
     end
   end

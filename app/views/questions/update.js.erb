@@ -1,0 +1,5 @@
+<% if @question.errors.any?%>
+$('#question').find('.question-body').html('<%= j render "form"%>');
+<%else%>
+$('#question').html('<%= j render partial: "question"%>');
+<%end%>

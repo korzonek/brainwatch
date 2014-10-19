@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe QuestionsController, type: :controller do
-  let(:question) { create(:question) }
   let(:user) { create(:user) }
+  let(:question) { create(:question, user: user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 12) }
@@ -32,11 +32,9 @@ describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    let(:question) { create(:question) }
-
     it 'should assign existing question as @question' do
       sign_in user
-      get :edit, id: question
+      xhr :get, :edit, id: question
       expect(assigns(:question)).to eq(question)
     end
   end
@@ -78,13 +76,13 @@ describe QuestionsController, type: :controller do
     before { sign_in user }
     context 'with valid attributes' do
       it 'should assign requested question to @question' do
-        patch :update, id: question, question: attributes_for(:question)
+        xhr :patch, :update, id: question, question: attributes_for(:question)
         expect(assigns(:question)).to eq question
-        expect(response).to redirect_to question
+        expect(response).to be_ok
       end
 
       it 'changes question attributes' do
-        patch :update, id: question, question: { title: 'changed title', body: 'changed body' }
+        xhr :patch, :update, id: question, question: {title: 'changed title', body: 'changed body'}
         question.reload
         expect(question.title).to eq 'changed title'
         expect(question.body).to eq 'changed body'
@@ -93,9 +91,9 @@ describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'should assign requested question to @question' do
-        patch :update, id: question, question: { title: nil, body: nil }
+        xhr :patch, :update, id: question, question: {title: nil, body: nil}
         expect(assigns(:question)).to eq question
-        expect(response).to render_template('edit')
+        expect(response).to render_template('questions/update')
       end
     end
   end
@@ -104,8 +102,8 @@ describe QuestionsController, type: :controller do
     before { sign_in user }
     it 'should delete the question' do
       question
-      expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
-      expect(response).to redirect_to questions_path
+      expect { xhr :delete, :destroy, id: question }.to change(Question, :count).by(-1)
+      expect(response).to be_ok
     end
   end
 end

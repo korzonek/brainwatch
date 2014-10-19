@@ -1,0 +1,5 @@
+<% if @comment.errors.any?%>
+$('#comment-<%=@comment.id%>').find('.answer-body').html('<%= j render "form"%>');
+<%else%>
+$('#comment-<%=@comment.id%>').html('<%= j render partial: "comment",locals: {comment:@comment}%>');
+<%end%>

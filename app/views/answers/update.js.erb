@@ -1,0 +1,5 @@
+<% if @answer.errors.any?%>
+$('#answer-<%=@answer.id%>').find('.answer-body').html('<%= j render "form"%>');
+<%else%>
+$('#answer-<%=@answer.id%>').html('<%= j render partial: "answer", locals:{answer:@answer,question:@answer.question}%>');
+<%end%>

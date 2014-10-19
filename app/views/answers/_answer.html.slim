@@ -9,19 +9,20 @@ div id="answer-#{answer.id}"
           =link_to(accept_answer_path(answer), method: :post , remote: true)
             span.glyphicon.glyphicon-ok
     .col-xs-11
-      =answer.body
+      div.answer-body=answer.body
       -answer.attachments.each do |a|
         =link_to a.file.filename, a.file.url
       div.pull-right
         = "asked #{time_ago_in_words(answer.created_at)} ago, by #{answer.user.name}"
       =link_to 'delete', answer_path(answer), remote: true ,method: :delete if answer.user==current_user
+      =link_to 'edit', edit_answer_path(answer), remote: true if answer.user==current_user
 
   hr
   div.comments
     = render partial: 'comments/comments', locals: {comments: answer.comments}
   div.comment-form
   div.add-comment-link
-    =link_to 'add a comment', new_question_answer_comment_path(@question,answer), remote: true if current_user
+    =link_to 'add a comment', new_question_answer_comment_path(question,answer), remote: true if current_user
 
 
 

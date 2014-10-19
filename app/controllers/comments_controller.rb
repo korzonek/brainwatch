@@ -7,6 +7,15 @@ class CommentsController < ApplicationController
     @comment = Comment.new
   end
 
+  def edit
+    @comment = current_user.comments.find(params[:id])
+  end
+
+  def update
+    @comment = current_user.comments.find(params[:id])
+    @comment.update(comment_params)
+  end
+
   def create
     @commentable = @answer || @question
     @comment = @commentable.comments.new(comment_params)

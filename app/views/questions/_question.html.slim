@@ -1,0 +1,13 @@
+h3=@question.title
+.question-body=@question.body
+-@question.attachments.each do |a|
+  =link_to a.file.filename, a.file.url
+.pull-right
+  = "asked #{time_ago_in_words(@question.created_at)}, by #{@question.user.name}"
+=link_to 'delete', question_path(@question), remote: true , method: :delete if @question.user==current_user
+=link_to 'edit', edit_question_path(@question), remote: true if @question.user==current_user
+.comments
+  = render partial: 'comments/comments', locals: {comments: @question.comments}
+.comment-form
+.add-comment-link
+  =link_to 'add a comment', new_question_comment_path(@question), remote: true if current_user
