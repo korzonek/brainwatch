@@ -1,2 +1,8 @@
-$('#question-comments').html('<%=render partial: 'comments/comments',locals: {comments:@commentable.comments}%>');
-$('#add-question-comment-link').show();
+var target = $('#<%= @answer.present? ? "answer-#{@answer.id}": "question" %>')
+<% if @comment.errors.any? %>
+target.find('.comment-form').html('<%= j render "form"%>');
+<% else %>
+target.find('.comments').html('<%=render partial: 'comments/comments',locals: {comments:@commentable.comments}%>');
+target.find('.add-comment-link').show();
+target.find('.comment-form').empty();
+<% end %>

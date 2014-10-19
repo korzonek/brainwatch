@@ -31,13 +31,15 @@ class QuestionsController < ApplicationController
   def edit
   end
 
-  def show
-    @answer = Answer.new
+  def destroy
+    question = current_user.questions.find(params[:id])
+    question.destroy if question
+    render js: "window.location.href='#{questions_path}'"
   end
 
-  def destroy
-    @question.destroy
-    redirect_to questions_path
+  def show
+    @answer = Answer.new
+    @comment = Comment.new
   end
 
   private

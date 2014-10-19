@@ -1,0 +1,2 @@
+var target = $('#<%= @commentable.class==Answer ? "answer-#{@commentable.id}": "question" %>')
+target.find('.comments').html('<%=render partial: 'comments/comments',locals: {comments:@commentable.comments}%>');

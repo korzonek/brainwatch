@@ -1,7 +1,8 @@
 -comments.each do |comment|
   div
     =comment.body
+    =link_to 'delete a comment', comment_path(comment), remote: true, method: :delete if comment.user == current_user
     div=comment.user.name if comment.user
     span
-      =>time_ago_in_words(comment.updated_at)
+      =>time_ago_in_words(comment.updated_at) if comment.updated_at
       | ago

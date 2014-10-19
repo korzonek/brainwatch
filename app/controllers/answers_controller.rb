@@ -21,6 +21,12 @@ class AnswersController < ApplicationController
     @question.accept_answer(@answer) if @question.author?(current_user)
   end
 
+  def destroy
+    answer = current_user.answers.find(params[:id])
+    @question = answer.question
+    answer.destroy if answer
+  end
+
   private
 
   def set_question

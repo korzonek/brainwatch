@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'questions#index'
   devise_for :users
   concern :commentable do
-    resources :comments, only: [:new, :create, :update]
+    resources :comments, only: [:new, :create, :update,:destroy]
   end
 
   resources :questions, concerns: :commentable do

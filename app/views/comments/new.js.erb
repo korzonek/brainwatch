@@ -1,2 +1,3 @@
-$('#add-question-comment').html('<%= j render "form"%>');
-$('#add-question-comment-link').show();
+var target = $('#<%= @answer.present? ? "answer-#{@answer.id}": "question" %>');
+target.find('.comment-form').html('<%= j render "form"%>');
+target.find('.add-comment-link').hide();

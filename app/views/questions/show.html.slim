@@ -5,9 +5,11 @@ div#question
     =link_to a.file.filename, a.file.url
   div.pull-right
     = "asked #{time_ago_in_words(@question.created_at)}, by #{@question.user.name}"
-  div#question-comments
+  =link_to 'delete', question_path(@question), remote: true ,method: :delete if @question.user==current_user
+  div.comments
     = render partial: 'comments/comments', locals: {comments: @question.comments}
-  div#add-question-comment-link
+  div.comment-form
+  div.add-comment-link
     =link_to 'add a comment', new_question_comment_path(@question), remote: true if current_user
 hr
 h4

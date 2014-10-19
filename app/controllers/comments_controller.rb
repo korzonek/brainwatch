@@ -1,31 +1,31 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_commentable
+  respond_to :js
 
   def new
     @comment = Comment.new
   end
 
   def create
-    #should validate comment created on owners object
     @commentable = @answer || @question
-    @comment = @commentable.comments.build(comment_params)
+    @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
-    if @comment.save
-      @answer = Answer.new
-      render :create
-    else
-      respond_to do |format|
-        format.js { render :new }
-      end
-    end
+    @comment.save
+    respond_with(@comment, :layout => !request.xhr?)
+  end
+
+  def destroy
+    comment = current_user.comments.find(params[:id])
+    @commentable = comment.commentable
+    comment.destroy if comment
   end
 
   private
 
   def set_commentable
-    @question = Question.find(params[:question_id])
-    @answer = @question.find(params[:answer_id]) if params[:answer_id]
+    @question = Question.find(params[:question_id]) if params[:question_id]
+    @answer = @question.answers.find(params[:answer_id]) if params[:answer_id]
   end
 
   def comment_params
