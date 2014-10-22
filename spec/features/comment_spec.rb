@@ -7,6 +7,7 @@ feature 'Question' do
   end
 
   given(:user) { create(:user) }
+
   scenario 'add comment to question', js: true do
     signin_user(user)
     visit question_path create(:question)
@@ -17,6 +18,38 @@ feature 'Question' do
       click_on 'Add Your Comment'
       expect(page).to_not have_selector('form')
       within('.comments') { expect(page).to have_content('Question comment') }
+    end
+  end
+
+  given(:enthusiast) { create(:user) }
+  given(:expert) { create(:user) }
+  given(:question_with_comment) do
+    create(:question, user: enthusiast)
+  end
+
+  scenario 'delete comment from question', js: true do
+    signin_user(user)
+    question_with_comment.comments.create!(body: 'Question comment', user: user)
+    visit question_path question_with_comment
+    within('#question') do
+      expect(page).to have_link('delete')
+      click_on 'delete'
+      expect(page).to_not have_content('Question comment')
+    end
+  end
+
+  scenario 'edit comment on question', js: true do
+    signin_user(user)
+    question_with_comment.comments.create!(body: 'Question comment', user: user)
+    visit question_path question_with_comment
+    within('#question') do
+      expect(page).to have_link('edit')
+      click_on 'edit'
+      expect(page).to have_selector('form')
+      fill_in 'Body', with: 'My Edited Answer'
+      click_on 'Add Your Comment'
+      expect(page).to have_content('My Edited Answer')
+      expect(page).to_not have_selector('form')
     end
   end
 
@@ -51,11 +84,19 @@ feature 'Question' do
       expect(page).to_not have_content('My comment')
     end
   end
-  scenario 'edit own comment'
 
-  scenario "on 'add a comment' click show add comment form"
-  scenario 'check comment added to answer'
-  scenario 'delete comment own'
-  scenario 'edit own comment'
+  scenario 'edit own comment on answer', js: true do
+    signin_user(user)
+    question_with_answers.answers.first.comments.create!(body: 'My comment', user: user)
+    visit question_path question_with_answers
+    within("#answer-#{question_with_answers.answers.first.id}") do
+      expect(page).to have_link('edit')
+      expect(page).to have_content('My comment')
+      click_on 'edit'
+      fill_in 'Body', with: 'Edited Comment'
+      click_on 'Add Your Comment'
+      expect(page).to_not have_selector('form')
+    end
+  end
 
 end
