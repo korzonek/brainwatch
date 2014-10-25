@@ -1,9 +1,12 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy, :create]
+  before_action :set_question, only: [:show]
+  before_action :set_question_from_author, only: [:edit, :update, :destroy]
+
+  respond_to :html, :js
 
   def index
-    @questions = Question.limit(10).order(created_at: :desc)
+    respond_with(@questions = Question.limit(10).order(created_at: :desc))
   end
 
   def new
@@ -11,28 +14,20 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params)
-    @question.user = current_user
-    if @question.save
-      redirect_to @question, notice: 'Question created'
-    else
-      render :new
-    end
+    respond_with(@question = current_user.questions.create(question_params))
   end
 
   def update
-    @question = current_user.questions.find(params[:id])
     @question.update(question_params)
+    respond_with @question
   end
 
   def edit
-    @question = current_user.questions.find(params[:id])
+    respond_with(@question)
   end
 
   def destroy
-    question = current_user.questions.find(params[:id])
-    question.destroy if question
-    render js: "window.location.href='#{questions_path}'"
+    respond_with(@question.destroy)
   end
 
   def show
@@ -44,6 +39,10 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def set_question_from_author
+    @question = current_user.questions.find(params[:id])
   end
 
   def question_params

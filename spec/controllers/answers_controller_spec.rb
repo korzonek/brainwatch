@@ -31,9 +31,9 @@ describe AnswersController, type: :controller do
         expect(assigns(:answer)).to be_a_new Answer
       end
 
-      it 're-renders the \'new\' template' do
+      it 're-renders the create template' do
         post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js
-        expect(response).to render_template('new')
+        expect(response).to render_template('create')
       end
     end
   end

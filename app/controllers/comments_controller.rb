@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_commentable
+  before_action :set_commentable, only: [:create, :new]
+  before_action :set_comment, only: [:edit, :update, :destroy]
   respond_to :js
 
   def new
@@ -8,26 +9,19 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = current_user.comments.find(params[:id])
   end
 
   def update
-    @comment = current_user.comments.find(params[:id])
     @comment.update(comment_params)
   end
 
   def create
-    @commentable = @answer || @question
-    @comment = @commentable.comments.new(comment_params)
-    @comment.user = current_user
-    @comment.save
-    respond_with(@comment, :layout => !request.xhr?)
+    respond_with(@comment = @commentable.comments.create(comment_params.merge(user: current_user)), :layout => !request.xhr?)
   end
 
   def destroy
-    comment = current_user.comments.find(params[:id])
-    @commentable = comment.commentable
-    comment.destroy if comment
+    @commentable = @comment.commentable
+    respond_with(@comment.destroy)
   end
 
   private
@@ -35,6 +29,11 @@ class CommentsController < ApplicationController
   def set_commentable
     @question = Question.find(params[:question_id]) if params[:question_id]
     @answer = @question.answers.find(params[:answer_id]) if params[:answer_id]
+    @commentable = @answer || @question
+  end
+
+  def set_comment
+    @comment = current_user.comments.find(params[:id])
   end
 
   def comment_params

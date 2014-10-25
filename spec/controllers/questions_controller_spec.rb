@@ -60,6 +60,7 @@ describe QuestionsController, type: :controller do
     end
 
     context 'with invalid attributes' do
+      before { sign_in user }
       it 'should not save invalid question' do
         post :create, question: attributes_for(:invalid_question)
         expect(assigns(:question)).to be_a_new Question
@@ -102,8 +103,8 @@ describe QuestionsController, type: :controller do
     before { sign_in user }
     it 'should delete the question' do
       question
-      expect { xhr :delete, :destroy, id: question }.to change(Question, :count).by(-1)
-      expect(response).to be_ok
+      expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+      expect(response).to redirect_to questions_path
     end
   end
 end

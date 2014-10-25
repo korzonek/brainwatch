@@ -1,4 +1,4 @@
-= simple_nested_form_for(@question, html: { class: 'form-horizontal' ,remote: !@question.new_record?}) do  |f|
+= simple_nested_form_for(@question, html: { class: 'form-horizontal' , remote: !@question.new_record?}) do  |f|
   =f.input :title
   =f.input :body, as: :text
   =f.simple_fields_for :attachments do |a|

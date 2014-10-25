@@ -1,2 +1,7 @@
+<% if @answer.errors.empty? %>
 $('.answers').html('<%= j render "answers/answers"%>');
+<%
+    @answer = Answer.new
+end
+%>
 $('.answer-form').html('<%= j render "form"%>');
