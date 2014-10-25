@@ -1,5 +1,8 @@
 h3=@question.title
 .question-body=@question.body
+.question-tags
+  -@question.tags.each do |t|
+    = link_to t.name, t
 -@question.attachments.each do |a|
   =link_to a.file.filename, a.file.url
 .pull-right

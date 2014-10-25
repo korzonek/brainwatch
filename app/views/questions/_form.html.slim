@@ -1,6 +1,7 @@
 = simple_nested_form_for(@question, html: { class: 'form-horizontal' , remote: !@question.new_record?}) do  |f|
   =f.input :title
   =f.input :body, as: :text
+  =f.input :tags_str, label: 'Tags'
   =f.simple_fields_for :attachments do |a|
     = a.input :file, as: :file
     = a.link_to_remove "Remove this Attachment"

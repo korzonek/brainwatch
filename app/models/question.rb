@@ -23,8 +23,13 @@ class Question < ActiveRecord::Base
   has_many :comments, as: :commentable
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
+  has_many :questions_tags
+  has_many :tags, through: :questions_tags
+
+  # has_and_belongs_to_many :tags
+
   def accepted_answer
-    answers.find_by(answers: { accepted: true })
+    answers.find_by(answers: {accepted: true})
   end
 
   def accept_answer(accepted_answer)
@@ -34,5 +39,13 @@ class Question < ActiveRecord::Base
 
   def author?(other_user)
     user == other_user
+  end
+
+  def tags_str
+    tags.pluck(:name).join(' ')
+  end
+
+  def tags_str=(string)
+    self.tags = Tag.from_string(string).uniq
   end
 end

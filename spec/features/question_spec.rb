@@ -59,13 +59,25 @@ feature 'Question' do
     signin_user(user)
     visit question_path create(:question)
     click_on 'add a comment'
-    within('#question') {
+    within('#question') do
       fill_in 'Body', with: 'My comment text'
       click_on 'Add Your Comment'
       save_screenshot('screen.png', :full => true)
       expect(page).to have_content('My comment text')
-    }
-    # should add comment and remove form
-
+    end
   end
+
+
+  # todo this test doesn't pass
+  # scenario 'Should add tags to question' do
+  #   signin_user(user)
+  #   visit new_question_path
+  #   fill_in 'Title', with: 'Question title'
+  #   fill_in 'Body', with: 'My question'
+  #   fill_in 'Tags', with: 'ruby-on-rails active-record'
+  #   click_on 'Post Your Question'
+  #   expect(page).to have_link('ruby-on-rails')
+  #   expect(page).to have_link('active-record')
+  # end
+
 end
