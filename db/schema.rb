@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20141025211727) do
 
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
 
+  create_table "question_tags", force: true do |t|
+    t.integer  "question_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "question_tags", ["question_id"], name: "index_question_tags_on_question_id", using: :btree
+  add_index "question_tags", ["tag_id"], name: "index_question_tags_on_tag_id", using: :btree
+
   create_table "questions", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -57,16 +67,6 @@ ActiveRecord::Schema.define(version: 20141025211727) do
   end
 
   add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
-
-  create_table "questions_tags", force: true do |t|
-    t.integer  "question_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "questions_tags", ["question_id"], name: "index_questions_tags_on_question_id", using: :btree
-  add_index "questions_tags", ["tag_id"], name: "index_questions_tags_on_tag_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"

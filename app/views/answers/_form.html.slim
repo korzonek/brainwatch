@@ -1,5 +1,3 @@
-- puts 'q'+@question.id.to_s
-- puts 'a'+@answer.id.to_s
 =simple_nested_form_for([@question,@answer],remote: true) do |f|
   =f.input :body
   =f.simple_fields_for :attachments do |a|

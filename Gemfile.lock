@@ -66,6 +66,8 @@ GEM
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
+    codeclimate-test-reporter (0.4.1)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -83,6 +85,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
@@ -233,6 +236,11 @@ GEM
       json
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
+    simplecov (0.9.1)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -285,6 +293,7 @@ DEPENDENCIES
   bootstrap-sass
   capybara
   carrierwave
+  codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise

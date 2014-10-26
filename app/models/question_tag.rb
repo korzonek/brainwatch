@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: questions_tags
+# Table name: question_tags
 #
 #  id          :integer          not null, primary key
 #  question_id :integer

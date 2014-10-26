@@ -1,6 +1,6 @@
-class CreateQuestionsTags < ActiveRecord::Migration
+class CreateQuestionTags < ActiveRecord::Migration
   def change
-    create_table :questions_tags do |t|
+    create_table :question_tags do |t|
       t.references :question, index: true
       t.references :tag , index: true
 

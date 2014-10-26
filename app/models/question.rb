@@ -23,8 +23,8 @@ class Question < ActiveRecord::Base
   has_many :comments, as: :commentable
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
-  has_many :questions_tags
-  has_many :tags, through: :questions_tags
+  has_many :question_tags
+  has_many :tags, through: :question_tags
 
   # has_and_belongs_to_many :tags
 
