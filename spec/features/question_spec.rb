@@ -68,16 +68,15 @@ feature 'Question' do
   end
 
 
-  # todo this test doesn't pass
-  # scenario 'Should add tags to question' do
-  #   signin_user(user)
-  #   visit new_question_path
-  #   fill_in 'Title', with: 'Question title'
-  #   fill_in 'Body', with: 'My question'
-  #   fill_in 'Tags', with: 'ruby-on-rails active-record'
-  #   click_on 'Post Your Question'
-  #   expect(page).to have_link('ruby-on-rails')
-  #   expect(page).to have_link('active-record')
-  # end
+  scenario 'Should add tags to question' do
+    signin_user(user)
+    visit new_question_path
+    fill_in 'Title', with: 'Question title'
+    fill_in 'Body', with: 'My question'
+    fill_in 'Tags', with: 'ruby-on-rails active-record'
+    click_on 'Post Your Question'
+    expect(page).to have_link('ruby-on-rails')
+    expect(page).to have_link('active-record')
+  end
 
 end
