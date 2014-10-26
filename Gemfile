@@ -41,6 +41,8 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'rspec-rails'
   gem 'letter_opener'
+  gem 'simplecov'
+
 end
 group :test do
   gem 'capybara'

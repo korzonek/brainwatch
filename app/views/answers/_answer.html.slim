@@ -1,7 +1,10 @@
 div id="answer-#{answer.id}"
   .row
     .col-xs-1
-      h3 00
+      h3.vote=answer.total_votes
+      = link_to '+', question_answer_upvote_path(question, answer),remote: true, method: :post
+      = link_to 'x', question_answer_resetvote_path(question, answer),remote: true, method: :post
+      = link_to '-', question_answer_downvote_path(question, answer),remote: true, method: :post
       - if answer == question.accepted_answer
         span.glyphicon.glyphicon-ok.accepted
       - else

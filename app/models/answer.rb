@@ -20,8 +20,12 @@ class Answer < ActiveRecord::Base
   belongs_to :user
   has_many :attachments, as: :attachable
   has_many :comments, as: :commentable
+  has_many :votes, as: :votable
+  validates :body, :user, presence: true
 
   accepts_nested_attributes_for :attachments
 
-  validates :body, presence: true
+  def total_votes
+    votes.sum(:score)
+  end
 end

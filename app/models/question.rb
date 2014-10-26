@@ -15,18 +15,17 @@
 #
 
 class Question < ActiveRecord::Base
-  validates :title, :body, presence: true
+  validates :title, :body, :user, presence: true
   has_many :answers
   belongs_to :user
   has_one :accepted_answer, class_name: 'Answer'
   has_many :attachments, as: :attachable
   has_many :comments, as: :commentable
+  has_many :votes, as: :votable
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   has_many :question_tags
   has_many :tags, through: :question_tags
-
-  # has_and_belongs_to_many :tags
 
   def accepted_answer
     answers.find_by(answers: {accepted: true})
@@ -47,5 +46,9 @@ class Question < ActiveRecord::Base
 
   def tags_str=(string)
     self.tags = Tag.from_string(string).uniq
+  end
+
+  def total_votes
+    votes.sum(:score)
   end
 end

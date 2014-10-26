@@ -328,6 +328,7 @@ DEPENDENCIES
   sendgrid
   shoulda-matchers
   simple_form!
+  simplecov
   slim-rails
   spring
   turbolinks

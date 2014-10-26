@@ -7,8 +7,14 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create, :update, :destroy, :edit]
   end
 
-  resources :questions, concerns: :commentable do
-    resources :answers, concerns: :commentable, shallow: true do
+  concern :votable do
+    post 'upvote', to: 'votes#up'
+    post 'downvote', to: 'votes#down'
+    post 'resetvote', to: 'votes#reset'
+  end
+
+  resources :questions, concerns: [:commentable, :votable] do
+    resources :answers, concerns: [:commentable, :votable], shallow: true do
       member do
         post 'accept'
       end
