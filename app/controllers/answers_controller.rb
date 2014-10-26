@@ -2,6 +2,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create]
   before_action :set_question, only: [:create]
   before_action :set_answer, only: [:edit, :update, :destroy]
+  before_action :set_question_from_answer, only: [:destroy]
   respond_to :js
 
   def create
@@ -24,7 +25,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    respond_with(@question.destroy)
+    respond_with(@answer.destroy)
   end
 
   private
@@ -35,6 +36,10 @@ class AnswersController < ApplicationController
 
   def set_answer
     @answer = current_user.answers.find(params[:id])
+  end
+
+  def set_question_from_answer
+    @question = @answer.question
   end
 
   def answer_params

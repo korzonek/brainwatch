@@ -50,4 +50,39 @@ feature 'Answer' do
     within('.answers') { expect(page).to have_css('a span.glyphicon.glyphicon-ok', 2) }
   end
 
+  scenario 'as author should be able to edit answer', js: true do
+    signin_user(expert)
+    visit question_path(question_with_answers)
+    answer_id = question_with_answers.answers.first.id
+    within("#answer-#{answer_id}") do
+      expect(page).to have_link('edit')
+      click_on 'edit'
+      fill_in 'Body', with: 'Corrected answer'
+      click_on 'Post Your Answer'
+      expect(page).to_not have_css('form')
+      expect(page).to have_content('Corrected answer')
+    end
+  end
+
+  scenario 'as not author should no be able to edit answer', js: true do
+    signin_user(enthusiast)
+    visit question_path(question_with_answers)
+    answer_id = question_with_answers.answers.first.id
+    within("#answer-#{answer_id}") do
+      expect(page).to_not have_link('edit')
+      expect(page).to_not have_link('delete')
+    end
+  end
+
+  scenario 'as author should be able to delete answer', js: true do
+    signin_user(expert)
+    visit question_path(question_with_answers)
+    answer_id = question_with_answers.answers.first.id
+    within("#answer-#{answer_id}") do
+      expect(page).to have_link('delete')
+      click_on 'delete'
+    end
+    expect(page).to have_content(question_with_answers.answers.first.body, count: 2)
+  end
+
 end
