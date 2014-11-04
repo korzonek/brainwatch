@@ -37,5 +37,10 @@ FactoryGirl.define do
     name 'Test User'
     email
     password 'please123'
+    factory :facebook_user do
+      authorizations { [create(:authorization)] }
+      password Digest::MD5.hexdigest(Time.now.to_s)
+    end
   end
+
 end

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'comments/create'
 
   root to: 'questions#index'
-  devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
   concern :commentable do
     resources :comments, only: [:new, :create, :update, :destroy, :edit]
   end

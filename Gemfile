@@ -18,6 +18,8 @@ gem 'slim-rails'
 gem 'carrierwave'
 gem 'remotipart'
 gem 'nested_form'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development do
   gem 'better_errors'
