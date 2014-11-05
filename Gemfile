@@ -20,6 +20,7 @@ gem 'remotipart'
 gem 'nested_form'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :development do
   gem 'better_errors'
