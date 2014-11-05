@@ -98,6 +98,18 @@ describe User do
           expect(authorization.uid).to eq(auth.uid)
         end
       end
+
+      context 'auth without email' do
+        let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '12345') }
+        let(:not_existing_auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '99999') }
+        let(:user) { create(:facebook_user) }
+        it 'loads existing user' do
+          expect(User.find_for_oauth(auth)).to eq(user)
+        end
+        it 'returns nil' do
+          expect(User.find_for_oauth(not_existing_auth)).to be_nil
+        end
+      end
     end
   end
 end

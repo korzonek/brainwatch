@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook,:twitter]
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook, :twitter]
   has_many :comments
   has_many :answers
   has_many :questions
@@ -40,16 +40,21 @@ class User < ActiveRecord::Base
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid).take
     return authorization.user if authorization
-    user = find_or_create(auth)
-    user.authorizations.create!(provider: auth.provider, uid: auth.uid)
+    if auth.info.try(:email)
+      password = Devise.friendly_token[0, 20]
+      user = User.where(email: auth.info.email).take || User.create!(email: auth.info.email, password: password, password_confirmation: password)
+      user.authorizations.create!(provider: auth.provider, uid: auth.uid)
+      user
+    end
+  end
+
+  def self.create_for_oauth_and_email(auth, email)
+    password = Devise.friendly_token[0, 20]
+    user = User.create(email: email, password: password, password_confirmation: password)
+    if user.persisted?
+      user.authorizations.create(provider: auth.provider, uid: auth.uid)
+    end
     user
   end
-
-  private
-
-  def self.find_or_create(auth)
-    email = auth.info.email
-    password = Devise.friendly_token[0, 20]
-    User.where(email: email).take or User.create!(email: email, password: password, password_confirmation: password)
-  end
 end
+
