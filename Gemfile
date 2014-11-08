@@ -21,6 +21,7 @@ gem 'nested_form'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'cancancan'
 
 group :development do
   gem 'better_errors'

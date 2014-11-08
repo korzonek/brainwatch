@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create]
+  authorize_resource
   before_action :set_question, only: [:create]
   before_action :set_answer, only: [:edit, :update, :destroy]
   before_action :set_question_from_answer, only: [:destroy]
@@ -20,8 +21,9 @@ class AnswersController < ApplicationController
 
   def accept
     @answer = Answer.find(params[:id])
+    authorize! :accept, @answer
     @question = @answer.question
-    @question.accept_answer(@answer) if @question.author?(current_user)
+    @question.accept_answer(@answer)
   end
 
   def destroy
@@ -35,7 +37,7 @@ class AnswersController < ApplicationController
   end
 
   def set_answer
-    @answer = current_user.answers.find(params[:id])
+    @answer = Answer.find(params[:id])
   end
 
   def set_question_from_answer

@@ -8,10 +8,7 @@ feature 'Answer' do
 
   scenario 'should be logged in to answer' do
     visit question_path(question)
-    fill_in 'Body', with: 'My Answer'
-    click_on 'Post Your Answer'
-    expect(current_path).to eq new_user_session_path
-    expect(page).to have_content I18n.t 'devise.failure.unauthenticated'
+    expect(page).to_not have_css('input')
   end
 
   scenario 'add answer to question', js: true do

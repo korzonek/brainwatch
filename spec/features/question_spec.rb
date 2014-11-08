@@ -41,7 +41,7 @@ feature 'Question' do
   scenario 'display question page' do
     visit question_path create(:question)
     expect(page).to have_content('MyString')
-    expect(page).to have_selector('form')
+    expect(page).to_not have_selector('form')
   end
 
   scenario 'don\'t see comment link on question' do

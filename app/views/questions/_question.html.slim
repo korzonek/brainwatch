@@ -1,7 +1,8 @@
 .vote=@question.total_votes
-= link_to '+', question_upvote_path(@question),remote: true, method: :post
-= link_to 'x', question_resetvote_path(@question),remote: true, method: :post
-= link_to '-', question_downvote_path(@question),remote: true, method: :post
+-if can?(:vote, @question)
+  = link_to '+', question_upvote_path(@question),remote: true, method: :post
+  = link_to 'x', question_resetvote_path(@question),remote: true, method: :post
+  = link_to '-', question_downvote_path(@question),remote: true, method: :post
 h3=@question.title
 .question-body=@question.body
 .question-tags
@@ -11,10 +12,10 @@ h3=@question.title
   =link_to a.file.filename, a.file.url
 .pull-right
   = "asked #{time_ago_in_words(@question.created_at)}, by #{@question.user.name}"
-=link_to 'delete', question_path(@question), remote: true , method: :delete if @question.user==current_user
-=link_to 'edit', edit_question_path(@question), remote: true if @question.user==current_user
+=link_to 'delete', question_path(@question), remote: true , method: :delete if can?(:destroy,@question)
+=link_to 'edit', edit_question_path(@question), remote: true if can?(:edit,@question)
 .comments
   = render partial: 'comments/comments', locals: {comments: @question.comments}
 .comment-form
 .add-comment-link
-  =link_to 'add a comment', new_question_comment_path(@question), remote: true if current_user
+  =link_to 'add a comment', new_question_comment_path(@question), remote: true if can?(:create, Comment)

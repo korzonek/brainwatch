@@ -7,5 +7,6 @@ h4
 hr
 .answers
   = render 'answers/answers'
-.answer-form
-  = render 'answers/form'
+-if can?(:create, Answer)
+  .answer-form
+    = render 'answers/form'

@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy, :create]
+  authorize_resource
   before_action :set_question, only: [:show]
   before_action :set_question_from_author, only: [:edit, :update, :destroy]
 
