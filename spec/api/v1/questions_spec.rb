@@ -89,4 +89,22 @@ describe 'Questions API' do
     end
   end
 
+  describe 'POST question' do
+    context 'authorized' do
+      let(:question_attributes) { attributes_for(:question) }
+      before(:each) do
+        post "/api/v1/questions", question: question_attributes, format: :json, access_token: access_token.token
+      end
+
+      it 'returns response' do
+        expect(response).to be_success
+      end
+
+      %w(title body).each do |attr|
+        it "returns #{attr}" do
+          expect(response.body).to be_json_eql(question_attributes[attr.to_sym].to_json).at_path("#{attr}")
+        end
+      end
+    end
+  end
 end

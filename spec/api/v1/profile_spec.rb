@@ -10,6 +10,7 @@ describe 'Profile API' do
         expect(response).to have_http_status(401)
       end
     end
+
     context 'authorized' do
       let(:me) { create(:user) }
       let(:access_token) { create(:access_token, resource_owner_id: me.id) }
@@ -19,7 +20,7 @@ describe 'Profile API' do
       end
 
       it 'returns user' do
-        expect(response).to be_success, 'invalid response from api'
+        expect(response).to be_success
       end
 
       %w(id email created_at updated_at).each do |attr|
@@ -32,6 +33,25 @@ describe 'Profile API' do
         it "returns #{attr}" do
           expect(response.body).to_not have_json_path(attr)
         end
+      end
+    end
+  end
+
+  describe 'GET /all' do
+    context 'authorized' do
+      let(:me) { create(:user) }
+      let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+      let!(:users) { create_list(:user, 10) }
+      before(:each) do
+        get '/api/v1/profiles/all', format: :json, access_token: access_token.token
+      end
+
+      it 'returns user' do
+        expect(response).to be_success
+      end
+
+      it 'return all users' do
+        expect(response.body).to have_json_size(10).at_path('profiles')
       end
     end
   end
