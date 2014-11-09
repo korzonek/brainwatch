@@ -22,6 +22,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'cancancan'
+gem 'doorkeeper'
 
 group :development do
   gem 'better_errors'
@@ -57,4 +58,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem "codeclimate-test-reporter", require: nil
+  gem 'json_spec'
 end

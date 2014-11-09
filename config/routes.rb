@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
-  get 'comments/create'
+  use_doorkeeper
+
+  namespace :api do
+    namespace :v1 do
+      resource :profiles do
+        get :me, on: :collection
+       end
+    end
+  end
 
   root to: 'questions#index'
+  get 'comments/create'
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
   devise_scope :user do
     post 'twitter_continue', to: 'omniauth_callbacks#twitter_continue'

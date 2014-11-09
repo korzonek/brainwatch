@@ -87,6 +87,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    doorkeeper (1.4.0)
+      railties (>= 3.1)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
@@ -133,6 +135,9 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    json_spec (1.1.4)
+      multi_json (~> 1.0)
+      rspec (>= 2.0, < 4.0)
     jwt (1.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -328,6 +333,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
+  doorkeeper
   dotenv
   factory_girl_rails
   faker
@@ -338,6 +344,7 @@ DEPENDENCIES
   hub
   jbuilder (~> 2.0)
   jquery-rails
+  json_spec
   launchy
   letter_opener
   nested_form
