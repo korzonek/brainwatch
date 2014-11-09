@@ -20,5 +20,6 @@
 FactoryGirl.define do
   factory :comment do
     commentable nil
+    body 'My comment text'
   end
 end

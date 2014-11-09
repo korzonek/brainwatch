@@ -23,6 +23,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'cancancan'
 gem 'doorkeeper'
+gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
 
 group :development do
   gem 'better_errors'
@@ -40,6 +43,7 @@ group :development do
   gem 'annotate'
   gem 'dotenv'
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'

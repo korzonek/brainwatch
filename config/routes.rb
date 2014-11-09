@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :profiles do
         get :me, on: :collection
-       end
+      end
+      resources :questions, shallow: true do
+        resources :answers
+      end
     end
   end
 

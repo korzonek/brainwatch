@@ -15,9 +15,10 @@
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
+include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :attachment do
-    question ''
+    file { fixture_file_upload("#{Rails.root}/spec/fixtures/files/attachment.txt") }
   end
 end
