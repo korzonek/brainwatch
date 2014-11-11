@@ -43,4 +43,26 @@ RSpec.describe Question, type: :model do
     end
   end
 
+  context 'is author' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question, user: user) }
+    it 'should be an author' do
+      expect(question.author?(user)).to be_truthy
+    end
+
+  end
+
+  context 'tags' do
+    let!(:question) { create(:question, tags: create_list(:tag, 2)) }
+    it 'should return tag names' do
+      expect(question.tags_str).to eq('tag1 tag2')
+    end
+
+    it 'should add tags' do
+      expect do
+        question.tags_str = 't3 t4 t5'
+      end.to change(Tag, :count).by(3)
+      expect(question.tags.size).to eq(3)
+    end
+  end
 end

@@ -3,5 +3,5 @@ $(function () {
         e.preventDefault();
         $(this).parents().eq(2).find('.add-comment-link').show();
         $(this).parents().eq(1).empty();
-    })
+    });
 });
