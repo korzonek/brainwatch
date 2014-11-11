@@ -1,6 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    @user = User.find_for_oauth(request.env['omniauth.auth'])
+    @user = UserOauthFactory.find_for_oauth(request.env['omniauth.auth'])
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
@@ -8,7 +8,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def twitter
-    @user = User.find_for_oauth(request.env['omniauth.auth'])
+    @user = UserOauthFactory.find_for_oauth(request.env['omniauth.auth'])
     if @user.present? && @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: 'Twitter') if is_navigational_format?
@@ -19,7 +19,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def twitter_continue
-    @user = User.create_for_oauth_and_email(OmniAuth::AuthHash.new(session['omniauth.auth']), params[:email])
+    @user = UserOauthFactory.create_for_oauth_and_email(OmniAuth::AuthHash.new(session['omniauth.auth']), params[:email])
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: 'Twitter') if is_navigational_format?

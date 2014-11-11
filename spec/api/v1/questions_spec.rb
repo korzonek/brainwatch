@@ -1,16 +1,8 @@
 describe 'Questions API' do
   let(:access_token) { create(:access_token) }
+
   describe 'GET questions' do
-    context 'unauthorized' do
-      it 'returns 401 status if no access token' do
-        get '/api/v1/questions', format: :json
-        expect(response).to have_http_status(401)
-      end
-      it 'returns 401 status if access token is incorrect' do
-        get '/api/v1/questions', format: :json, access_token: '1234'
-        expect(response).to have_http_status(401)
-      end
-    end
+    it_behaves_like 'API Authenticable', :get, '/api/v1/questions'
 
     context 'authorized' do
       let!(:questions) { create_list(:question, 2) }
@@ -19,10 +11,6 @@ describe 'Questions API' do
 
       before(:each) do
         get '/api/v1/questions', format: :json, access_token: access_token.token
-      end
-
-      it 'returns response' do
-        expect(response).to be_success
       end
 
       it 'returns list questions' do
@@ -54,10 +42,12 @@ describe 'Questions API' do
   end
 
   describe 'GET question' do
+    let(:attachment) { create(:attachment) }
+    let(:comment) { question.comments.first }
+    let!(:question) { create(:question, comments: create_list(:comment, 1), attachments: [attachment]) }
+
     context 'authorized' do
-      let(:attachment) { create(:attachment) }
-      let!(:question) { create(:question, comments: create_list(:comment, 1), attachments: [attachment]) }
-      let(:comment) { question.comments.first }
+      # it_behaves_like 'API Authenticable', :get, "/api/v1/questions/#{question.id}"
 
       before(:each) do
         get "/api/v1/questions/#{question.id}", format: :json, access_token: access_token.token
@@ -92,6 +82,9 @@ describe 'Questions API' do
   describe 'POST question' do
     context 'authorized' do
       let(:question_attributes) { attributes_for(:question) }
+
+      it_behaves_like 'API Authenticable', :post, '/api/v1/questions', {question: FactoryGirl.attributes_for(:question)}
+
       before(:each) do
         post "/api/v1/questions", question: question_attributes, format: :json, access_token: access_token.token
       end

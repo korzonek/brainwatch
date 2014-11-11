@@ -2,6 +2,7 @@ describe 'Questions API' do
   let(:access_token) { create(:access_token) }
 
   describe 'GET questions answers' do
+
     context 'authorized' do
       let(:attachment) { create(:attachment) }
       let!(:question) { create(:question, answers: create_list(:answer, 3)) }
