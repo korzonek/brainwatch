@@ -7,6 +7,7 @@ class Api::V1::ProfilesController < Api::V1::ApiController
   end
 
   def all
+    #todo rename to index, do with sql
     respond_with User.all.to_a.reject { |u| u==current_resource_owner }
   end
 

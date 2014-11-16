@@ -78,6 +78,7 @@ describe UserOauthFactory do
 
         it 'returns user' do
           expect(UserOauthFactory.create_for_oauth_and_email(auth, email)).to be_a User
+          #todo создание пользования
         end
       end
     end

@@ -46,8 +46,8 @@ describe 'Questions API' do
     let(:comment) { question.comments.first }
     let!(:question) { create(:question, comments: create_list(:comment, 1), attachments: [attachment]) }
 
+    it_behaves_like 'API Authenticable', :get, "/api/v1/questions/#{question.id}"
     context 'authorized' do
-      # it_behaves_like 'API Authenticable', :get, "/api/v1/questions/#{question.id}"
 
       before(:each) do
         get "/api/v1/questions/#{question.id}", format: :json, access_token: access_token.token
